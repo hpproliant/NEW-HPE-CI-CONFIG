@@ -1,8 +1,8 @@
 - hosts: all
-  name: HPE virtual media job
+  name: HPE ilo-pxe job
   tasks:
 
-    - name: Create workspace directory to run virtual-media
+    - name: Create workspace directory to run ilo-pxe
     - block:
         - name: Cloning virtual-media gate
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
@@ -11,10 +11,10 @@
           shell: while [ $CI_READY != "true" ];do sleep 1; done
 
         - name: Injecting new patch to ironic container and setting ironic.conf
-          shell: /home/citest/ironic_patch_injection.sh {{zuul.ref}}
+          shell: /home/citest/NEW-HPE-CI-JOBS/ironic_patch_injection.sh {{zuul.ref}}
 
         - name: Running virtual-media prepare gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/virtual-media/prepare-gate.sh
+          shell: /home/citest/NEW-HPE-CI-JOBS/ilo-pxe/prepare-gate.sh
 
         - name: Generate MoltenIron Id for node
           command: uuidgen
@@ -23,8 +23,8 @@
         - name: Allocating test node
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
 
-        - name: Running virtual-media gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/virtual-media/gate.sh
+        - name: Running ilo-pxe gate
+          shell: /home/citest/NEW-HPE-CI-JOBS/ilo-pxe/gate.sh
 
       always:
         - name: Deallocating test node
