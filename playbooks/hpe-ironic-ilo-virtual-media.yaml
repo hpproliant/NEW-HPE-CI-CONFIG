@@ -13,8 +13,8 @@
         - name: Injecting new patch to ironic container and setting ironic.conf
           shell: /home/citest/NEW-HPE-CI-JOBS/ironic_patch_injection.sh {{zuul.ref}}
 
-        - name: Running virtual-media prepare gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/virtual-media/prepare-gate.sh
+        - name: Preparing the gate
+          shell: /home/citest/NEW-HPE-CI-JOBS/prepare-gate.sh
 
         - name: Generate MoltenIron Id for node
           command: uuidgen
