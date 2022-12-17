@@ -1,16 +1,16 @@
 - hosts: all
-  name: HPE virtual media job
+  name: HPE Proliant redfish pxe driver job
   tasks:
 
-    - name: Create workspace directory to run virtual-media
+    - name: Create workspace directory to run redfish-pxe-driver
     - block:
-        - name: Cloning virtual-media gate
+        - name: Cloning redfish-pxe-driver gate
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
 
         - name: Waiting for host to get CI ready (Kolla bootstrapping)
           shell: while [ $CI_READY != "true" ];do sleep 1; done
 
-        - name: Injecting new patch to ironic container and setting ironic.conf
+        - name: name: Injecting new patch to ironic container and setting ironic.conf
           shell: /home/citest/NEW-HPE-CI-JOBS/ironic_patch_injection.sh {{zuul.ref}}
 
         - name: Preparing the gate
@@ -23,8 +23,8 @@
         - name: Allocating test node
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
 
-        - name: Running virtual-media gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/virtual-media/gate.sh
+        - name: Running redfish-pxe-driver
+          shell: /home/citest/NEW-HPE-CI-JOBS/redfish-pxe-driver/gate.sh
 
       always:
         - name: Deallocating test node
