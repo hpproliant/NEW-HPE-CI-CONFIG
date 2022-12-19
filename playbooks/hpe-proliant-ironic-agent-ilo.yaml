@@ -4,7 +4,7 @@
 
     - name: Create workspace directory to run agent-ilo
     - block:
-        - name: Cloning virtual-media gate
+        - name: Cloning agent-ilo gate
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
 
         - name: Waiting for host to get CI ready (Kolla bootstrapping)
@@ -24,7 +24,7 @@
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
 
         - name: Running agent-ilo gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/agent/gate.sh
+          shell: /home/citest/NEW-HPE-CI-JOBS/agent-ilo/gate.sh
 
       always:
         - name: Deallocating test node

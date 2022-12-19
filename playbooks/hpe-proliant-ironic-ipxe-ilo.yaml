@@ -1,10 +1,10 @@
 - hosts: all
-  name: HPE ilo-pxe job
+  name: HPE ilo-ipxe job
   tasks:
 
-    - name: Create workspace directory to run ilo-pxe
+    - name: Create workspace directory to run ilo-ipxe
     - block:
-        - name: Cloning virtual-media gate
+        - name: Cloning ilo-ipxe gate
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
 
         - name: Waiting for host to get CI ready (Kolla bootstrapping)
@@ -23,8 +23,8 @@
         - name: Allocating test node
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
 
-        - name: Running ilo-pxe gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/ilo-pxe/gate.sh
+        - name: Running ilo-ipxe gate
+          shell: /home/citest/NEW-HPE-CI-JOBS/ilo-ipxe/gate.sh
 
       always:
         - name: Deallocating test node

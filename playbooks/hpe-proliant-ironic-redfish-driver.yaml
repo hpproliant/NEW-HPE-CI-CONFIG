@@ -1,5 +1,5 @@
 - hosts: all
-  name: HPE Proliant redfish driver job
+  name: HPE Proliant redfish-driver job
   tasks:
 
     - name: Create workspace directory to run redfish-driver

@@ -1,10 +1,10 @@
 - hosts: all
-  name: HPE Proliant redfish pxe driver job
+  name: HPE Proliant redfish-ipxe-driver job
   tasks:
 
-    - name: Create workspace directory to run redfish-pxe-driver
+    - name: Create workspace directory to run redfish-ipxe-driver
     - block:
-        - name: Cloning redfish-pxe-driver gate
+        - name: Cloning redfish-ipxe-driver gate
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
 
         - name: Waiting for host to get CI ready (Kolla bootstrapping)
@@ -23,8 +23,8 @@
         - name: Allocating test node
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
 
-        - name: Running redfish-pxe-driver
-          shell: /home/citest/NEW-HPE-CI-JOBS/redfish-pxe-driver/gate.sh
+        - name: Running redfish-ipxe-driver
+          shell: /home/citest/NEW-HPE-CI-JOBS/redfish-ipxe-driver/gate.sh
 
       always:
         - name: Deallocating test node
