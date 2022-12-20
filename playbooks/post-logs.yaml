@@ -48,12 +48,20 @@
               sudo cp -R /etc/kolla/* /tmp/logs/etc/
               cp /home/citest/gate-test/tempest/etc/tempest.conf /tmp/logs/etc/
 
+              # Create cleaning info
+              <clean_info.json>   ==> it will have ==>
+              {
+                "job_id": "{{ log_path }}",
+                "job_timestamp": str(time.time())
+              }
+              cp clean_info.json /tmp/logs/ansible_logs/
+
               # Copy logs to log-server
               tar -cvf /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar /tmp/logs
               scp -i /home/citest/logserver_id_rsa -o StrictHostKeyChecking=no /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar logserver@169.16.1.30:~/INCOMING_LOGS/
-              
+
               # Push logs to GIT
-              <curl 169.16.1.40 BODY: "{{ log_path }}">
+              curl -X POST -d '{"paste_path": "{{ log_path }}", "tar_name": "{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar"}' -H 'Content-Type: application/json' http://169.16.1.30/logs/upload
 
             dest: "{{ tmpe.path }}"
             mode: 0777
