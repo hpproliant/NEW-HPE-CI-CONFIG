@@ -24,7 +24,7 @@
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
 
         - name: Running agent-ilo gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/agent-ilo/gate.sh
+          shell: /home/citest/NEW-HPE-CI-JOBS/ilo-virtual-media/gate.sh
 
       always:
         - name: Deallocating test node
