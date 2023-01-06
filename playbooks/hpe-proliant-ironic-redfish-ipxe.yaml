@@ -1,16 +1,16 @@
 - hosts: all
-  name: HPE Proliant ilo5 uefi https job
+  name: HPE Proliant redfish-ipxe job
   tasks:
 
-    - name: Create workspace directory to run ilo5-uefi-https
+    - name: Create workspace directory to run redfish-ipxe
     - block:
-        - name: Cloning ilo5-uefi-https gate
+        - name: Cloning redfish-ipxe gate
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
 
         - name: Waiting for host to get CI ready (Kolla bootstrapping)
           shell: while [ $CI_READY != "true" ];do sleep 1; done
 
-        - name: Injecting new patch to ironic container and setting ironic.conf
+        - name: name: Injecting new patch to ironic container and setting ironic.conf
           shell: /home/citest/NEW-HPE-CI-JOBS/ironic_patch_injection.sh {{zuul.ref}}
 
         - name: Preparing the gate
@@ -23,8 +23,8 @@
         - name: Allocating test node
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10 strict
 
-        - name: Running ilo5-uefi-https gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/gate.sh
+        - name: Running redfish-ipxe
+          shell: /home/citest/NEW-HPE-CI-JOBS/redfish-ipxe/gate.sh
 
       always:
         - name: Deallocating test node

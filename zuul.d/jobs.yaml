@@ -1,0 +1,128 @@
+- job:
+    name: base
+    parent: null
+    description: The base job not using openstack/ironic roles
+    timeout: 10800
+    post-run: playbooks/post-logs.yaml
+
+- job:
+    name: HPE-Gen9-ironic-container-standalone-wholedisk-uefi-ilo-virtual-media-direct-python3
+    description: A job to test ilo-virtual-media driver for HPE Proliant Server
+    timeout: 10800
+    voting: false
+    parent: base
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^ironic/locale/.*$
+      - ^ironic/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
+    run: playbooks/hpe-proliant-ironic-ilo-virtual-media.yaml
+    nodeset:
+      nodes:
+        - name: citest
+          label: cloud
+
+- job:
+    name: HPE-Gen9-ironic-container-standalone-wholedisk-uefi-ilo-ipxe-direct-python3
+    description: A job to test ipxe based driver for HPE Proliant Server
+    timeout: 10800
+    parent: base
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^ironic/locale/.*$
+      - ^ironic/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
+    run: playbooks/hpe-proliant-ironic-ilo-ipxe.yaml
+    nodeset:
+      nodes:
+        - name: citest
+          label: cloud
+
+- job:
+    name: HPE-Gen10-ironic-container-standalone-wholedisk-uefi-redfish-virtual-media-direct-python3
+    description: A job to test redfish virtual media based driver for HPE Proliant Server
+    timeout: 10800
+    parent: base
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^ironic/locale/.*$
+      - ^ironic/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
+    run: playbooks/hpe-proliant-ironic-redfish-virtual-media.yaml
+    nodeset:
+      nodes:
+        - name: citest
+          label: cloud
+
+- job:
+    name: HPE-Gen10-ironic-container-standalone-wholedisk-uefi-redfish-ipxe-python3
+    description: A job to test redfish ipxe based driver for HPE Proliant Server
+    timeout: 10800
+    parent: base
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^ironic/locale/.*$
+      - ^ironic/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
+    run: playbooks/hpe-proliant-ironic-redfish-ipxe.yaml
+    nodeset:
+      nodes:
+        - name: citest
+          label: cloud
+
+#- job:
+#    name: hpe-gen10-dsvm-ironic-standalone-wholedisk-ilo-uefi-https-direct-python3
+#    description: A job to test ilo uefi-https deploy for HPE Proliant Server
+#    timeout: 10800
+#    parent: base
+#    voting: false
+#    irrelevant-files:
+#      - ^(test-|driver-)requirements.txt$
+#      - ^.*\.rst$
+#      - ^api-ref/.*$
+#      - ^doc/.*$
+#      - ^install-guide/.*$
+#      - ^ironic/locale/.*$
+#      - ^ironic/tests/.*$
+#      - ^releasenotes/.*$
+#      - ^setup.cfg$
+#      - ^tools/.*$
+#      - ^tox.ini$
+#      - ^zuul.d/.*$
+#    run: playbooks/hpe-proliant-ironic-ilo5-driver-uefi-https.yaml
+#    nodeset:
+#      nodes:
+#        - name: citest
+#          label: cloud

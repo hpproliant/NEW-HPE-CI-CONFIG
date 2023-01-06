@@ -1,10 +1,10 @@
 - hosts: all
-  name: HPE Proliant ilo5 uefi https job
+  name: HPE ilo-virtual-media job
   tasks:
 
-    - name: Create workspace directory to run ilo5-uefi-https
+    - name: Create workspace directory to run ilo-virtual-media
     - block:
-        - name: Cloning ilo5-uefi-https gate
+        - name: Cloning ilo-virtual-media gate
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
 
         - name: Waiting for host to get CI ready (Kolla bootstrapping)
@@ -21,10 +21,10 @@
           register: uuid
 
         - name: Allocating test node
-          command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10 strict
+          command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9 loose
 
-        - name: Running ilo5-uefi-https gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/gate.sh
+        - name: Running ilo-virtual-media gate
+          shell: /home/citest/NEW-HPE-CI-JOBS/ilo-virtual-media/gate.sh
 
       always:
         - name: Deallocating test node
