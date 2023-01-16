@@ -5,7 +5,10 @@
     - name: Create workspace directory to run redfish-virtual-media
     - block:
         - name: Waiting for host to get CI ready (Kolla bootstrapping)
-          shell: while [ ! -f "/home/citest/ci_ready" ];do sleep 1; done
+          shell: while [[ ! -f "/home/citest/ci_ready" && ! -f "/home/citest/ci_failed" ]];do sleep 1; done
+        
+        - name: Checking for success status
+          shell: if [ -f "/home/citest/ci_failed" ];then exit 1; fi
 
         - name: name: Injecting new patch to ironic container and setting ironic.conf
           shell: /home/citest/NEW-HPE-CI-JOBS/ironic_patch_injection.sh {{zuul.ref}}

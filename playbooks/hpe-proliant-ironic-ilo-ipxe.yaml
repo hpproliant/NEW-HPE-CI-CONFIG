@@ -5,7 +5,7 @@
     - name: Create workspace directory to run ilo-ipxe
     - block:
         - name: Waiting for host to get CI ready (Kolla bootstrapping and Kolla deploy)
-          shell: while [[ ! -f "/home/ci_test/ci_ready" && ! -f "/home/ci_test/ci_failed" ]];do sleep 1; done
+          shell: while [[ ! -f "/home/citest/ci_ready" && ! -f "/home/citest/ci_failed" ]];do sleep 1; done
 
         - name: Checking for success status
           shell: if [ -f "/home/citest/ci_failed" ];then exit 1; fi
