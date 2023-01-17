@@ -4,14 +4,14 @@
 
     - name: Create workspace directory to run ilo-virtual-media
     - block:
-        - name: Waiting for host to get CI ready (Kolla bootstrapping)
-          shell: while [[ ! -f "/home/citest/ci_ready" && ! -f "/home/citest/ci_failed" ]];do sleep 1; done
+        - name: Kolla bootstrapping and Kolla deploy
+          shell: /home/citest/NEW-HPE-CI-JOBS/kolla-deploy.sh
 
-        - name: Checking for success status
-          shell: if [ -f "/home/citest/ci_failed" ];then exit 1; fi
+        - name: Injecting new patch to ironic container and do reconfigure
+          shell: /home/citest/NEW-HPE-CI-JOBS/ironic-patch-injection.sh {{zuul.ref}}
 
-        - name: Injecting new patch to ironic container and setting ironic.conf
-          shell: /home/citest/NEW-HPE-CI-JOBS/ironic_patch_injection.sh {{zuul.ref}}
+        - name: Prepare gate
+          shell: /home/citest/NEW-HPE-CI-JOBS/prepare-gate.sh
 
         - name: Generate MoltenIron Id for node
           command: uuidgen
