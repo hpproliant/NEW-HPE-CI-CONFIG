@@ -4,6 +4,9 @@
 
     - name: Create workspace directory to run ilo5-uefi-https
     - block:
+        - name: Clone gate jobs
+          shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
+
         - name: Kolla bootstrapping and Kolla deploy
           shell: /home/citest/NEW-HPE-CI-JOBS/kolla-deploy.sh
 

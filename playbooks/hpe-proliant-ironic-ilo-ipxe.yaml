@@ -4,6 +4,9 @@
 
     - name: Create workspace directory to run ilo-ipxe
     - block:
+        - name: Clone gate jobs
+          shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-CONFIG.git
+
         - name: Kolla bootstrapping and Kolla deploy
           shell: /home/citest/NEW-HPE-CI-JOBS/kolla-deploy.sh
 
@@ -18,7 +21,7 @@
           register: uuid
 
         - name: Allocating test node
-          command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9 strict
+          command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9 loose
 
         - name: Running ilo-ipxe gate
           shell: /home/citest/NEW-HPE-CI-JOBS/ilo-ipxe/gate.sh  2>&1 | tee /home/citest/gate_logs/gate.logs

@@ -4,12 +4,4 @@
       jobs:
        - HPE-Gen9-ironic-container-standalone-wholedisk-uefi-ilo-virtual-media-direct-python3
        - HPE-Gen9-ironic-container-standalone-wholedisk-uefi-ilo-ipxe-direct-python3
-       - HPE-Gen10-ironic-container-standalone-wholedisk-uefi-redfish-virtual-media-direct-python3
-       - HPE-Gen10-ironic-container-standalone-wholedisk-uefi-redfish-ipxe-python3
-#       - HPE-Gen10-ironic-container-standalone-wholedisk-ilo-uefi-https-direct-python3
-
-#- project:
-#    name: openstack/sushy
-#    check:
-#      jobs:
-#       - hpe-gen10-dsvm-sushy-standalone-wholedisk-uefi-redfish-virtual-media-direct-python3
+       - HPE-Gen10-ironic-container-standalone-wholedisk-ilo-uefi-https-direct-python3
