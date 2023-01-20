@@ -27,5 +27,8 @@
           shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/gate.sh 2>&1 | tee /home/citest/gate_logs/gate.logs
 
       always:
+        - name: Remove TLS cert
+          shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/files/remove_cert
+
         - name: Deallocating test node
           shell: /home/citest/NEW-HPE-CI-JOBS/molteniron/release_molten.py {{ uuid.stdout }}
