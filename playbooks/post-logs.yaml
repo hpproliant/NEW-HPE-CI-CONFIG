@@ -27,38 +27,37 @@
           copy:
             content: |
               # Copy ansible logs
-              mkdir -p /tmp/logs/job_logs
+              mkdir -p /home/citest/gate_logs/zuul_executor
               ssh -i /home/citest/zuul_id_rsa -o StrictHostKeyChecking=no zuul@169.16.1.40 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
               ssh -i /home/citest/zuul_id_rsa -o StrictHostKeyChecking=no zuul@169.16.1.40 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
-              scp -i /home/citest/zuul_id_rsa -o StrictHostKeyChecking=no -r zuul@169.16.1.40:{{ zuul.executor.log_root }} /tmp/job_logs/
+              scp -i /home/citest/zuul_id_rsa -o StrictHostKeyChecking=no -r zuul@169.16.1.40:{{ zuul.executor.log_root }} /home/citest/gate_logs/zuul_executor/
               
-              # Copy ironic logs
-              mkdir -p /tmp/logs/ironic_logs
-              sudo cp /var/log/kolla/ironic/* /tmp/logs/ironic_logs/
-              
-              # Copy kolla deploy logs
-              mkdir -p /tmp/logs/ansible_logs
-              sudo cp /var/log/kolla/ansible.log /tmp/logs/ansible_logs/
-
+              # Copy kolla services logs
+              mkdir -p /home/citest/gate_logs/kolla_services
+              sudo cp -R /var/log/kolla/ /home/citest/gate_logs/kolla_services/
+              sudo chown -R citest.citest /home/citest/gate_logs
+                         
               # Copy misc logs
-              cp /home/citest/ci_init.log /tmp/logs/job_logs/
+              sudo cp /home/citest/ci_init.log /home/citest/gate_logs/
 
               # Copy configurations
-              mkdir -p /tmp/logs/etc
-              sudo cp -R /etc/kolla/* /tmp/logs/etc/
-              cp /home/citest/gate-test/tempest/etc/tempest.conf /tmp/logs/etc/
+              mkdir -p /home/citest/gate_logs/etc
+              sudo rm -rf /etc/kolla/config
+              sudo cp -R /etc/kolla/ /home/citest/gate_logs/etc/
+              sudo chown -R citest.citest /home/citest/gate_logs
+              cp /home/citest/gate-test/tempest/etc/tempest.conf /home/citest/gate_logs/etc/
 
               # Create cleaning info
-              <clean_info.json>   ==> it will have ==>
+              timestamp=$(date +%s)
+              cat <<EOF >/home/citest/gate_logs/clean_info.json
               {
                 "job_id": "{{ log_path }}",
-                "job_timestamp": str(time.time())
+                "job_timestamp": $timestamp
               }
-              cp clean_info.json /tmp/logs/ansible_logs/
 
               # Copy logs to log-server
-              tar -cvf /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar /tmp/logs
-              scp -i /home/citest/logserver_id_rsa -o StrictHostKeyChecking=no /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar logserver@169.16.1.30:~/INCOMING_LOGS/
+              tar -cvf /home/citest/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar /home/citest/gate_logs/
+              scp -i /home/citest/logserver_id_rsa -o StrictHostKeyChecking=no /home/citest/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar logserver@169.16.1.30:~/INCOMING_LOGS/
 
               # Push logs to GIT
               curl -X POST -d '{"paste_path": "{{ log_path }}", "tar_name": "{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar"}' -H 'Content-Type: application/json' http://169.16.1.30/logs/upload
