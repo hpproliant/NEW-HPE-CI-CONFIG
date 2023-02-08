@@ -36,13 +36,16 @@
               mkdir -p /home/citest/gate_logs/kolla_services
               sudo cp -R /var/log/kolla/ /home/citest/gate_logs/kolla_services/
               sudo chown -R citest.citest /home/citest/gate_logs
+              rm -rf /home/citest/gate_logs/kolla_services/kolla/ironic/*.gz
                          
               # Copy misc logs
               sudo cp /home/citest/ci_init.log /home/citest/gate_logs/
 
               # Copy configurations
               mkdir -p /home/citest/gate_logs/etc
+              sudo chown -R citest.citest /etc/kolla/*
               sudo rm -rf /etc/kolla/config
+              sudo rm -rf /etc/kolla/ironic-http/*.ipxe /etc/kolla/ironic-http/*.efiboot /etc/kolla/ironic-http/*.initramfs /etc/kolla/ironic-http/*.kernel /etc/kolla/ironic-http/*.qcow2
               sudo cp -R /etc/kolla/ /home/citest/gate_logs/etc/
               sudo chown -R citest.citest /home/citest/gate_logs
               cp /home/citest/gate-test/tempest/etc/tempest.conf /home/citest/gate_logs/etc/
@@ -54,9 +57,10 @@
                 "job_id": "{{ log_path }}",
                 "job_timestamp": $timestamp
               }
+              EOF
 
               # Copy logs to log-server
-              tar -cvf /home/citest/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar /home/citest/gate_logs/
+              tar -cvf /home/citest/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar -C /home/citest gate_logs/
               scp -i /home/citest/logserver_id_rsa -o StrictHostKeyChecking=no /home/citest/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar logserver@169.16.1.30:~/INCOMING_LOGS/
 
               # Push logs to GIT

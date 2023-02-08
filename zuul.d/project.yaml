@@ -2,6 +2,6 @@
     name: openstack/ironic
     check:
       jobs:
-       - HPE-Gen9-ironic-container-standalone-wholedisk-uefi-ilo-virtual-media-direct-python3
-       - HPE-Gen9-ironic-container-standalone-wholedisk-uefi-ilo-ipxe-direct-python3
-       - HPE-Gen10-ironic-container-standalone-wholedisk-ilo-uefi-https-direct-python3
+       - HPE-Proliant-ironic-container-standalone-wholedisk-ilo-virtual-media-direct
+       - HPE-Proliant-ironic-container-standalone-wholedisk-ilo-ipxe-direct
+       - HPE-Proliant-ironic-container-standalone-wholedisk-ilo-uefi-https-direct
