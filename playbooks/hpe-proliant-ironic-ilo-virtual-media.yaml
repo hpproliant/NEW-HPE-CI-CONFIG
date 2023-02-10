@@ -2,7 +2,6 @@
   name: HPE ilo-virtual-media job
   tasks:
 
-    - name: Create workspace directory to run ilo-virtual-media
     - block:
         - name: Clone gate jobs
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git

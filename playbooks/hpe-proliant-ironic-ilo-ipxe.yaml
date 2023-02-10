@@ -2,7 +2,6 @@
   name: HPE ilo-ipxe job
   tasks:
 
-    - name: Create workspace directory to run ilo-ipxe
     - block:
         - name: Clone gate jobs
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-CONFIG.git
