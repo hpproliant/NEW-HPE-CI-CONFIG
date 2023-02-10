@@ -25,7 +25,6 @@
       - ^tox.ini$
       - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-ilo-virtual-media.yaml
-    ansible-version: 2.8
     nodeset:
       nodes:
         - name: citest
