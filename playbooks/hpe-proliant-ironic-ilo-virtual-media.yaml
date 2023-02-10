@@ -4,7 +4,8 @@
 
     - block:
         - name: This is paresh test
-          shell: echo "Hello Ciiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"
+          command: echo "Great work dude................."
+          register: mymotd
 
         - name: Clone gate jobs
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
