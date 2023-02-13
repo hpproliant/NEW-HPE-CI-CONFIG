@@ -3,3 +3,5 @@
     check:
       jobs:
        - HPE-Proliant-ironic-container-standalone-wholedisk-ilo-virtual-media-direct
+       - HPE-Proliant-ironic-container-standalone-wholedisk-ilo-ipxe-direct
+       - HPE-Proliant-ironic-container-standalone-wholedisk-ilo-uefi-https-direct

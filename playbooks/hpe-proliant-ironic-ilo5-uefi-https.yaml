@@ -3,6 +3,10 @@
   tasks:
 
     - block:
+        - name: Generate MoltenIron Id for node
+          command: uuidgen
+          register: uuid
+
         - name: Clone gate jobs
           shell: cd /home/citest; git clone https://github.com/hpproliant/NEW-HPE-CI-JOBS.git
 
@@ -15,16 +19,11 @@
         - name: Prepare gate
           shell: /home/citest/NEW-HPE-CI-JOBS/prepare-gate.sh
 
-        - name: Generate MoltenIron Id for node
-          command: uuidgen
-          register: uuid
-
         - name: Allocating test node
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10 strict
 
         - name: Running ilo5-uefi-https gate
           shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/gate.sh 2>&1 | tee /home/citest/gate_logs/gate.logs
-
       always:
         - name: Remove TLS cert
           shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/files/remove_cert
