@@ -9,7 +9,7 @@
     name: HPE-Proliant-ironic-container-standalone-wholedisk-ilo-virtual-media-direct
     description: A job to test ilo-virtual-media driver for HPE Proliant Server
     timeout: 10800
-    voting: false
+    voting: true
     parent: base
     irrelevant-files:
       - ^(test-|driver-)requirements.txt$
@@ -59,7 +59,7 @@
     description: A job to test ilo uefi-https deploy for HPE Proliant Server
     timeout: 10800
     parent: base
-    voting: false
+    voting: true
     irrelevant-files:
       - ^(test-|driver-)requirements.txt$
       - ^.*\.rst$
