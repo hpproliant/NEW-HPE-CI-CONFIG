@@ -33,3 +33,16 @@
         - name: Job failed
           fail:
             msg: "HPE ilo5-uefi-https job failed."
+      always:
+        - name: Deallocating test node
+          shell: /home/citest/NEW-HPE-CI-JOBS/molteniron/release_molten.py {{ uuid.stdout }}
+
+        - name: Check job status
+          stat:
+            path: "/tmp/job-failed"
+          register: result
+
+        - name: Check job failed
+          fail:
+            msg: "HPE ilo5-uefi-https job failed."
+          when: result.stat.exists

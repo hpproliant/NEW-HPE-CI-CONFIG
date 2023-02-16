@@ -36,7 +36,7 @@
               mkdir -p /home/citest/gate_logs/kolla_services
               sudo cp -R /var/log/kolla/ /home/citest/gate_logs/kolla_services/
               sudo chown -R citest.citest /home/citest/gate_logs
-              rm -rf /home/citest/gate_logs/kolla_services/kolla/ironic/*.gz
+              rm -f /home/citest/gate_logs/kolla_services/kolla/ironic/*.gz
                          
               # Copy misc logs
               sudo cp /home/citest/ci_init.log /home/citest/gate_logs/
