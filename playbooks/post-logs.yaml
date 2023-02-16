@@ -71,6 +71,12 @@
           no_log: true
           become: true
 
+        - name: Release node
+          command: /home/citest/NEW-HPE-CI-JOBS/molteniron/release_molten.py
+
+        - name: Remove cert
+          shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/files/remove_cert
+
         - name: Posting logs to logserver
           shell: bash {{ tmpe.path }}
       always:
