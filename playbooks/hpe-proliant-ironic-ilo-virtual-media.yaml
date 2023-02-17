@@ -13,7 +13,7 @@
           shell: /home/citest/NEW-HPE-CI-JOBS/kolla-deploy.sh
 
         - name: Allocating test node
-          command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9 loose
+          command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10 strict
 
         - name: Running ilo-virtual-media gate
           shell: /home/citest/NEW-HPE-CI-JOBS/ilo-virtual-media/gate.sh {{zuul.ref}} 2>&1 | tee /home/citest/gate_logs/gate.log
