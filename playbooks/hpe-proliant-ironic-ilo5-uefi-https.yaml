@@ -16,7 +16,7 @@
           command: /home/citest/NEW-HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10 strict
 
         - name: Running ilo5-uefi-https gate
-          shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/gate.sh {{zuul.ref}} 2>&1 | tee /home/citest/gate_logs/gate.logs
+          shell: /home/citest/NEW-HPE-CI-JOBS/ilo5-uefi-https/gate.sh {{zuul.ref}} 2>&1 | tee /home/citest/gate_logs/gate.log
 
         - name: Deallocating test node
           shell: /home/citest/NEW-HPE-CI-JOBS/molteniron/release_molten.py {{ uuid.stdout }}
