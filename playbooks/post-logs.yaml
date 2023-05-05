@@ -50,6 +50,9 @@
               sudo chown -R citest.citest /home/citest/gate_logs
               cp /home/citest/gate-test/tempest/etc/tempest.conf /home/citest/gate_logs/etc/
 
+              # Compress logs
+              gzip -9 -r /home/citest/gate_logs/
+
               # Create cleaning info
               timestamp=$(date +%s)
               cat <<EOF >/home/citest/gate_logs/clean_info.json
