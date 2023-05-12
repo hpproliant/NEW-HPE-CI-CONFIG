@@ -11,19 +11,6 @@
     timeout: 10800
     voting: true
     parent: base
-    irrelevant-files:
-      - ^(test-|driver-)requirements.txt$
-      - ^.*\.rst$
-      - ^api-ref/.*$
-      - ^doc/.*$
-      - ^install-guide/.*$
-      - ^ironic/locale/.*$
-      - ^ironic/tests/.*$
-      - ^releasenotes/.*$
-      - ^setup.cfg$
-      - ^tools/.*$
-      - ^tox.ini$
-      - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-ilo-virtual-media.yaml
     nodeset:
       nodes:
@@ -35,19 +22,6 @@
     description: A job to test ipxe based driver for HPE Proliant Server
     timeout: 10800
     parent: base
-    irrelevant-files:
-      - ^(test-|driver-)requirements.txt$
-      - ^.*\.rst$
-      - ^api-ref/.*$
-      - ^doc/.*$
-      - ^install-guide/.*$
-      - ^ironic/locale/.*$
-      - ^ironic/tests/.*$
-      - ^releasenotes/.*$
-      - ^setup.cfg$
-      - ^tools/.*$
-      - ^tox.ini$
-      - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-ilo-ipxe.yaml
     nodeset:
       nodes:
@@ -61,18 +35,6 @@
     parent: base
     voting: false
     irrelevant-files:
-      - ^(test-|driver-)requirements.txt$
-      - ^.*\.rst$
-      - ^api-ref/.*$
-      - ^doc/.*$
-      - ^install-guide/.*$
-      - ^ironic/locale/.*$
-      - ^ironic/tests/.*$
-      - ^releasenotes/.*$
-      - ^setup.cfg$
-      - ^tools/.*$
-      - ^tox.ini$
-      - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-ilo5-uefi-https.yaml
     nodeset:
       nodes:
