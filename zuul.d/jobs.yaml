@@ -12,6 +12,19 @@
     voting: true
     parent: base
     run: playbooks/hpe-proliant-ironic-ilo-virtual-media.yaml
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^ironic/locale/.*$
+      - ^ironic/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
     nodeset:
       nodes:
         - name: citest
@@ -23,6 +36,19 @@
     timeout: 10800
     parent: base
     run: playbooks/hpe-proliant-ironic-ilo-ipxe.yaml
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^ironic/locale/.*$
+      - ^ironic/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
     nodeset:
       nodes:
         - name: citest
@@ -34,8 +60,20 @@
     timeout: 10800
     parent: base
     voting: false
-    irrelevant-files:
     run: playbooks/hpe-proliant-ironic-ilo5-uefi-https.yaml
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^ironic/locale/.*$
+      - ^ironic/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
     nodeset:
       nodes:
         - name: citest
